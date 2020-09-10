@@ -1,10 +1,13 @@
 package com.coderpage.mine.app.tally.persistence.sql.dao;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.RoomWarnings;
 
+import com.coderpage.mine.app.tally.persistence.model.FundModel;
 import com.coderpage.mine.app.tally.persistence.sql.entity.FundEntity;
+
+import java.util.List;
 
 /**
  * create by ths on 2020/9/8
@@ -13,8 +16,11 @@ import com.coderpage.mine.app.tally.persistence.sql.entity.FundEntity;
 public interface FundDao {
 
     // 根据指定时间查询 一批数据
-    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    @Query("select * from fund where fund.fund_type == :type and fund.fund_type_unique == :unique order by create_time desc")
-    FundEntity getAppointFund(long time,String type,String unique);
+    //where fund.fund_type == :type order by create_time desc
+    @Query("select * from fund where fund.fund_type == :type order by create_time desc")
+    List<FundModel> getAppointFund(String type);
 
+    // 目前是要进行插入
+    @Insert
+    long insert(FundEntity fundEntity);
 }

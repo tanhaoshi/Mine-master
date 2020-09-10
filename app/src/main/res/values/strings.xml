@@ -3,11 +3,13 @@
     <string name="app_name">我的记账本</string>
     <string name="searchable_label">mine</string>
     <string name="searchable_hint">搜索</string>
+    <string name="add_fund">基金</string>
 
     <string name="drag_2_order">拖拽排序</string>
     <string name="complete">完成</string>
     <string name="delete">删除</string>
     <string name="modify">修改</string>
+    <string name="fund_edit">编辑</string>
     <string name="place_holder">--</string>
     <string name="string_format_date_y_m" formatted="false">%d年%d月</string>
 
@@ -43,7 +45,7 @@
     <string name="menu_tally_records">账单记录</string>
     <string name="menu_tally_setting">设置</string>
     <string name="menu_tally_chart">账单详情</string>
-    <string name="menu_tally_investment">投资</string>
+    <string name="menu_tally_investment">指数</string>
     <string name="menu_tally_search">搜索</string>
     <string name="menu_tally_date_range_select">选择日期</string>
     <string name="menu_tally_sort_category">排序</string>
@@ -141,6 +143,7 @@
     <string name="tally_check_month_expense">查看月账单</string>
     <string name="tally_current_month_expense_amount">本月支出</string>
     <string name="tally_current_month_income_amount">本月收入</string>
+    <string name="tally_add_fund">添加Fund</string>
 
     <!-- record edit activity -->
     <string name="tally_edit_title_expense">支出</string>

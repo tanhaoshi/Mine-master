@@ -1,24 +1,17 @@
-package com.coderpage.mine.app.tally.persistence.sql.entity;
+package com.coderpage.mine.app.tally.persistence.model;
 
 import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Index;
-import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
+
+import com.coderpage.mine.app.tally.persistence.sql.entity.FundEntity;
 
 /**
- * create by ths on 2020/9/8
- *
- * indices 索引
+ * create by ths on 2020/9/9
  */
-@Entity(tableName = "fund", indices = {@Index(value = {"fund_type_unique"}, unique = true)})
-public class FundEntity {
+public class FundModel {
 
     @ColumnInfo(name = "fund_id")
-    @PrimaryKey(autoGenerate = true)
     private long id;
 
-    @NonNull
     @ColumnInfo(name = "fund_sync_id")
     private long fundSyncId;
 
@@ -121,5 +114,19 @@ public class FundEntity {
 
     public void setFundUnique(String fundUnique) {
         this.fundUnique = fundUnique;
+    }
+
+    public FundEntity createEntity() {
+        FundEntity entity = new FundEntity();
+        entity.setId(getId());
+        entity.setFundName(getFundName());
+        entity.setFundNumber(getFundNumber());
+        entity.setFundPercent(getFundPercent());
+        entity.setFundRange(getFundRange());
+        entity.setFundSyncId(getFundSyncId());
+        entity.setFundType(getFundType());
+        entity.setFundUnique(getFundUnique());
+        entity.setTime(getTime());
+        return entity;
     }
 }

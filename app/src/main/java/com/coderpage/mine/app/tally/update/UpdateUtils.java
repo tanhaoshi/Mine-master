@@ -7,6 +7,7 @@ import com.coderpage.lib.update.ApkModel;
 import com.coderpage.lib.update.DefaultVersionComparator;
 import com.coderpage.lib.update.Updater;
 import com.coderpage.mine.R;
+import com.coderpage.mine.app.tally.module.home.HomeActivity;
 
 /**
  * @author lc. 2017-10-01 00:29
@@ -40,10 +41,15 @@ public class UpdateUtils {
         boolean hasNewVersion = new DefaultVersionComparator()
                 .compare(context, newVersionApkModelPersisted);
         if (hasNewVersion) {
-            new Updater.Builder(context, new LatestVersionFetcher())
-                    .setNotifyIcon(R.mipmap.ic_launcher)
-                    .create()
-                    .showApkDownloadConfirmDialog(context, newVersionApkModelPersisted);
+//            HomeActivity homeActivity = (HomeActivity) context;
+//            if(homeActivity.isFinishing()){
+//
+//            }else{
+//                new Updater.Builder(context, new LatestVersionFetcher())
+//                        .setNotifyIcon(R.mipmap.ic_launcher)
+//                        .create()
+//                        .showApkDownloadConfirmDialog(context, newVersionApkModelPersisted);
+//            }
         }
     }
 }

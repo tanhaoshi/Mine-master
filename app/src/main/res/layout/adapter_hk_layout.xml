@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <data class=".tally.module.index.IndexItemBinding">
+    <data class=".tally.module.index.IndexItemHKBinding">
 
         <import type="android.view.View" />
 
@@ -16,7 +16,7 @@
 
         <variable
             name="VM"
-            type="com.coderpage.mine.app.tally.module.investment.model.IndexAdapterViewModel"/>
+            type="com.coderpage.mine.app.tally.module.investment.model.IndexHKViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -69,8 +69,6 @@
             android:text="@{data.indexPercent}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
-
 
     </android.support.constraint.ConstraintLayout>
 

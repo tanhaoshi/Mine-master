@@ -1,6 +1,12 @@
 package com.coderpage.mine.app.tally.module.investment.repository;
 
+
+
+import com.coderpage.base.common.Callback;
+import com.coderpage.base.common.IError;
+import com.coderpage.concurrency.MineExecutors;
 import com.coderpage.mine.app.tally.persistence.model.FundModel;
+import com.coderpage.mine.app.tally.persistence.model.IndexModel;
 import com.coderpage.mine.app.tally.persistence.sql.TallyDatabase;
 
 import java.util.List;
@@ -17,8 +23,22 @@ public class InvestmentRepository {
         mDataBase = TallyDatabase.getInstance();
     }
 
-    /** 查询国内指数 */
-    public void queryDomestic(String type){
-        List<FundModel> fundEntityList = mDataBase.fundDisposeDao().getAppointFund(type);
+    public List<IndexModel> queryDomestic(String type){
+        List<IndexModel> list = mDataBase.indexDao().getInsideIndex(type);
+        if(null != list && list.size() > 0){
+            return list;
+        }else{
+            return null;
+        }
+    }
+
+    public void queryAllFun(Callback<List<FundModel>, IError> callback){
+        MineExecutors.ioExecutor().execute(() ->{
+            List<FundModel> fundModels = mDataBase.fundDisposeDao().getAllFund();
+
+            if(null != fundModels && fundModels.size() > 0){
+                MineExecutors.executeOnUiThread(() -> callback.success(fundModels));
+            }
+        });
     }
 }

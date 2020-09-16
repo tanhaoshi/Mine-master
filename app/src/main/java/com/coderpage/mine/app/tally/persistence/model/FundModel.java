@@ -4,14 +4,17 @@ import android.arch.persistence.room.ColumnInfo;
 
 import com.coderpage.mine.app.tally.persistence.sql.entity.FundEntity;
 
+import java.io.Serializable;
+
 /**
  * create by ths on 2020/9/9
  */
-public class FundModel {
+public class FundModel implements Serializable {
 
     @ColumnInfo(name = "fund_id")
     private long id;
 
+    /** 指数代码 */
     @ColumnInfo(name = "fund_sync_id")
     private long fundSyncId;
 

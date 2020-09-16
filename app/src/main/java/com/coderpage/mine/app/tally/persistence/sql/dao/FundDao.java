@@ -23,4 +23,7 @@ public interface FundDao {
     // 目前是要进行插入
     @Insert
     long insert(FundEntity fundEntity);
+
+    @Query("select * from fund group by fund_name order by create_time")
+    List<FundModel> getAllFund();
 }

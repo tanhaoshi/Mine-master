@@ -17,9 +17,11 @@ import com.coderpage.mine.app.tally.data.CategoryContant;
 import com.coderpage.mine.app.tally.data.CategoryIconHelper;
 import com.coderpage.mine.app.tally.persistence.sql.dao.CategoryDao;
 import com.coderpage.mine.app.tally.persistence.sql.dao.FundDao;
+import com.coderpage.mine.app.tally.persistence.sql.dao.IndexDao;
 import com.coderpage.mine.app.tally.persistence.sql.dao.RecordDao;
 import com.coderpage.mine.app.tally.persistence.sql.entity.CategoryEntity;
 import com.coderpage.mine.app.tally.persistence.sql.entity.FundEntity;
+import com.coderpage.mine.app.tally.persistence.sql.entity.IndexEntity;
 import com.coderpage.mine.app.tally.persistence.sql.entity.RecordEntity;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ import java.util.List;
  * @since 0.6.0
  */
 
-@Database(entities = {RecordEntity.class,CategoryEntity.class,FundEntity.class}, version = 70, exportSchema = false)
+@Database(entities = {RecordEntity.class,CategoryEntity.class,FundEntity.class, IndexEntity.class}, version = 71, exportSchema = false)
 public abstract class TallyDatabase extends RoomDatabase {
     /** sqlite db name */
     private static final String DATABASE_NAME = "sql_tally";
@@ -43,6 +45,8 @@ public abstract class TallyDatabase extends RoomDatabase {
     private static final int VERSION_0_6_0 = 60;
     /** db version of app version 0.7.0 */
     private static final int VERSION_0_7_0 = 70;
+
+    private static final int VERSION_0_7_1 = 71;
 
     private static TallyDatabase sInstance = null;
 
@@ -61,11 +65,18 @@ public abstract class TallyDatabase extends RoomDatabase {
     public abstract CategoryDao categoryDao();
 
     /**
-     * 指数表
+     * 基金表
      *
-     * @return 投资表操作
+     * @return 基金表操作
      */
     public abstract FundDao fundDisposeDao();
+
+    /**
+     * 指数表
+     *
+     * @return 指数表操作
+     */
+    public abstract IndexDao indexDao();
 
 
     public static TallyDatabase getInstance() {
@@ -75,10 +86,9 @@ public abstract class TallyDatabase extends RoomDatabase {
                     sInstance = Room.databaseBuilder(
                             MineApp.getAppContext(),
                             TallyDatabase.class, DATABASE_NAME)
-                            .addMigrations(MIGRATION_010_040, MIGRATION_040_060,MIGRATION_060_070)
+                            .addMigrations(MIGRATION_010_040, MIGRATION_040_060,MIGRATION_060_070,MIGRATION_070_071)
                             .addCallback(mTallDatabaseCallback)
                             .allowMainThreadQueries()
-                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }
@@ -279,7 +289,7 @@ public abstract class TallyDatabase extends RoomDatabase {
     private static final Migration MIGRATION_060_070 = new Migration(VERSION_0_6_0, VERSION_0_7_0) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-//            // 创建指数表
+//            // 创建基金表
             database.execSQL("CREATE TABLE fund ("
                     + "fund_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                     + "fund_sync_id INTEGER NOT NULL DEFAULT(0),"
@@ -293,6 +303,25 @@ public abstract class TallyDatabase extends RoomDatabase {
                     + "UNIQUE (fund_type_unique) ON CONFLICT IGNORE)");
 
             database.execSQL("CREATE UNIQUE INDEX index_fund_fund__type_unique on fund(fund_type_unique)");
+        }
+    };
+
+    private static final Migration MIGRATION_070_071 = new Migration(VERSION_0_7_0,VERSION_0_7_1) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE indexs ("
+                    + "index_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                    + "index_sync_id INTEGER NOT NULL DEFAULT(0),"
+                    + "create_time INTEGER NOT NULL DEFAULT(0),"
+                    + "index_name TEXT ,"
+                    + "index_number TEXT ,"
+                    + "index_type_unique TEXT,"
+                    + "index_range TEXT ,"
+                    + "index_percent TEXT,"
+                    + "index_type TEXT,"
+                    + "UNIQUE (index_type_unique) ON CONFLICT IGNORE)");
+
+            database.execSQL("CREATE UNIQUE INDEX index_indexs_indexs__type_unique on indexs(index_type_unique)");
         }
     };
 

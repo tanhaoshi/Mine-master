@@ -137,6 +137,8 @@ dependencies {
     annotationProcessor rootProject.arounterProcessor
     testImplementation rootProject.junit
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //fast json 解析
+    implementation 'com.alibaba:fastjson:1.2.10'
 }
 repositories {
     mavenCentral()

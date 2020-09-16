@@ -26,47 +26,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:fitsSystemWindows="true"
-                app:contentScrim="?attr/colorAccent"
-                app:expandedTitleMarginEnd="64dp"
-                app:expandedTitleMarginStart="48dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+<!--            <android.support.design.widget.CollapsingToolbarLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fitsSystemWindows="true"-->
+<!--                app:contentScrim="?attr/colorAccent"-->
+<!--                app:expandedTitleMarginEnd="64dp"-->
+<!--                app:expandedTitleMarginStart="48dp"-->
+<!--                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">-->
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/indexUSARecycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="96dp">
-                </android.support.v7.widget.RecyclerView>
+                    <android.support.v7.widget.Toolbar
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/toolbar"
+                        style="@style/Widget.Toolbar"
+                        android:layout_width="match_parent"
+                        app:titleTextColor="@color/appTextColorPrimary"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="?attr/colorPrimary"/>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/indexHKRecycler"
-                    app:layout_collapseMode="parallax"
-                    android:layout_width="match_parent"
-                    android:layout_height="96dp">
-                </android.support.v7.widget.RecyclerView>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/indexRecycler"
-                    app:layout_collapseMode="pin"
-                    android:layout_width="match_parent"
-                    android:layout_height="96dp">
-                </android.support.v7.widget.RecyclerView>
-
-                <android.support.v7.widget.Toolbar
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/toolbar"
-                    style="@style/Widget.Toolbar"
-                    android:layout_width="match_parent"
-                    app:titleTextColor="@color/appTextColorPrimary"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    app:layout_collapseMode="pin"/>
-
-            </android.support.design.widget.CollapsingToolbarLayout>
+<!--            </android.support.design.widget.CollapsingToolbarLayout>-->
 
         </android.support.design.widget.AppBarLayout>
 
@@ -74,14 +53,41 @@
             android:id="@+id/refreshLayout"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:tr_autoLoadMore="false"
             app:tr_enable_loadmore="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/indexRecycler"
+            app:layout_collapseMode="pin"
+            android:layout_width="match_parent"
+            android:layout_height="96dp">
+        </android.support.v7.widget.RecyclerView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/indexUSARecycler"
+            android:layout_width="match_parent"
+            android:layout_height="96dp">
+        </android.support.v7.widget.RecyclerView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/indexHKRecycler"
+            app:layout_collapseMode="parallax"
+            android:layout_width="match_parent"
+            android:layout_height="96dp">
+        </android.support.v7.widget.RecyclerView>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/fundRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
         </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 

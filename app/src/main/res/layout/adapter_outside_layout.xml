@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <data class=".tally.module.index.IndexItemBinding">
+    <data class=".tally.module.index.IndexItemOutsideBinding">
 
         <import type="android.view.View" />
 
@@ -16,7 +16,7 @@
 
         <variable
             name="VM"
-            type="com.coderpage.mine.app.tally.module.investment.model.IndexAdapterViewModel"/>
+            type="com.coderpage.mine.app.tally.module.investment.model.IndexOutsideViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

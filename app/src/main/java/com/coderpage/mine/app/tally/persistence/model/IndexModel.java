@@ -4,10 +4,12 @@ import android.arch.persistence.room.ColumnInfo;
 
 import com.coderpage.mine.app.tally.persistence.sql.entity.IndexEntity;
 
+import java.io.Serializable;
+
 /**
  * create by ths on 2020/9/11
  */
-public class IndexModel {
+public class IndexModel implements Serializable {
 
     @ColumnInfo(name = "index_id")
     private long id;

@@ -7,6 +7,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
 import com.coderpage.base.common.Callback;
 import com.coderpage.base.common.IError;
 import com.coderpage.mine.app.tally.module.investment.repository.InvestmentRepository;
@@ -63,6 +64,7 @@ public class InvestmentModel extends AndroidViewModel implements LifecycleObserv
          mRepository.queryAllFun(new Callback<List<FundModel>, IError>() {
             @Override
             public void success(List<FundModel> fundModels) {
+                Log.i("InvestmentModel","look at json data = " + JSON.toJSONString(fundModels));
                 fundObserve.setValue(fundModels);
             }
 

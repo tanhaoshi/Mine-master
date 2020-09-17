@@ -47,6 +47,7 @@
                 android:layout_marginEnd="@dimen/padding_normal"
                 android:background="@null"
                 android:hint="幅度"
+                android:inputType="numberSigned"
                 android:layout_marginStart="@dimen/spacing_micro"
                 android:paddingTop="@dimen/padding_normal"
                 android:paddingBottom="@dimen/padding_normal"

@@ -20,13 +20,11 @@ import com.coderpage.mine.app.tally.module.investment.adapter.IndexHKAdapter;
 import com.coderpage.mine.app.tally.module.investment.adapter.IndexInsideAdapter;
 import com.coderpage.mine.app.tally.module.investment.adapter.IndexOfFundAdapter;
 import com.coderpage.mine.app.tally.module.investment.adapter.IndexOutsideAdapter;
+import com.coderpage.mine.app.tally.module.investment.model.IndexFundViewModel;
 import com.coderpage.mine.app.tally.module.investment.model.InvestmentModel;
 import com.coderpage.mine.app.tally.persistence.model.FundModel;
 import com.coderpage.mine.app.tally.persistence.model.IndexModel;
-import com.coderpage.mine.app.tally.ui.refresh.RefreshHeadView;
 import com.coderpage.mine.ui.BaseActivity;
-import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
-import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 
 import java.util.List;
 
@@ -44,7 +42,6 @@ public class InvestmentActivity extends BaseActivity {
 
     private InvestmentModel           mInvestmentModel;
     private InvestmentActivityBinding mActivityBinding;
-    private TwinklingRefreshLayout    mRefreshLayout;
 
     private IndexInsideAdapter  mIndexInsideAdapter;
     private IndexOutsideAdapter mIndexOutsideAdapter;
@@ -58,7 +55,7 @@ public class InvestmentActivity extends BaseActivity {
         mInvestmentModel = ViewModelProviders.of(this).get(InvestmentModel.class);
         getLifecycle().addObserver(mInvestmentModel);
 
-        setToolbarAsBack(v -> onBackPressed());
+        setToolbarAsBack(v -> finish());
         setToolbarTitle(getResources().getString(R.string.menu_tally_investment));
 
         initView();
@@ -66,15 +63,6 @@ public class InvestmentActivity extends BaseActivity {
     }
 
     private void initView() {
-        mRefreshLayout = mActivityBinding.refreshLayout;
-        mRefreshLayout.setHeaderView(new RefreshHeadView(this));
-        mRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
-            @Override
-            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                super.onRefresh(refreshLayout);
-            }
-        });
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
 
         RecyclerView insideRcView = mActivityBinding.indexRecycler;
@@ -104,7 +92,7 @@ public class InvestmentActivity extends BaseActivity {
         RecyclerView fundRcView = mActivityBinding.fundRecycler;
         fundRcView.setLayoutManager(fundLayoutManager);
 
-        mIndexOfFundAdapter = new IndexOfFundAdapter(this);
+        mIndexOfFundAdapter = new IndexOfFundAdapter(this,ViewModelProviders.of(this).get(IndexFundViewModel.class));
         fundRcView.setAdapter(mIndexOfFundAdapter);
     }
 

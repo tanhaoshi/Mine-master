@@ -27,10 +27,10 @@ public class IndexOfFundAdapter extends RecyclerView.Adapter<IndexOfFundAdapter.
     private Activity mActivity;
     private IndexFundViewModel mFundViewModel;
 
-    public IndexOfFundAdapter(Activity activity){
+    public IndexOfFundAdapter(Activity activity,IndexFundViewModel fundViewModel){
         this.mActivity = activity;
         mInflater = LayoutInflater.from(activity);
-        this.mFundViewModel = new IndexFundViewModel(MineApp.getAppContext());
+        this.mFundViewModel = fundViewModel;
     }
 
     public void setData(List<FundModel> list){

@@ -20,12 +20,14 @@
         <activity
             android:name=".app.tally.module.index.IndexEditActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Tally">
+            android:theme="@style/Theme.Tally"
+            android:windowSoftInputMode="stateHidden|adjustPan">
         </activity>
         <activity
             android:name=".app.tally.module.fund.FundEditActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Tally"/>
+            android:theme="@style/Theme.Tally"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name=".app.tally.module.investment.InvestmentActivity"
             android:screenOrientation="portrait"
@@ -122,6 +124,7 @@
             android:name="com.talkingdata.sdk.TDAntiCheatingService"
             android:process="com.talkingdata.sdk.TDAntiCheatingService">
             <intent-filter>
+
                 <action android:name="com.talkingdata.sdk.TDAntiCheatingService" />
             </intent-filter>
         </service>

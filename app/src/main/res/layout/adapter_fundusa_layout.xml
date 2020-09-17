@@ -22,7 +22,9 @@
     <android.support.constraint.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="140dp"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:onClick="@{(v) -> VM.onItemClick(data,activity)}"
+        android:layout_width="130dp"
         android:layout_height="96dp">
 
         <TextView
@@ -33,7 +35,8 @@
             android:layout_marginTop="6dp"
             android:text="@{data.indexName}"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            tools:text="上证指数"/>
 
         <TextView
             android:id="@+id/fund_desc"
@@ -44,7 +47,8 @@
             android:textSize="22sp"
             android:text="@{data.indexNumber}"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            tools:text="3200.359"/>
 
         <TextView
             android:id="@+id/increase"
@@ -56,7 +60,8 @@
             android:layout_marginRight="4dp"
             android:text="@{data.indexRange}"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            tools:text="+1.872"/>
 
         <TextView
             android:id="@+id/increasePercent"
@@ -68,9 +73,8 @@
             android:layout_marginLeft="4dp"
             android:text="@{data.indexPercent}"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
+            android:layout_height="wrap_content"
+            tools:text="+1.872%"/>
 
     </android.support.constraint.ConstraintLayout>
 

@@ -2,18 +2,18 @@ package com.coderpage.mine.app.tally.module.index;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
 import com.coderpage.mine.R;
 import com.coderpage.mine.app.tally.persistence.model.IndexModel;
+import com.coderpage.mine.app.tally.utils.KeyboardUtils;
 import com.coderpage.mine.ui.BaseActivity;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -23,6 +23,8 @@ public class IndexEditActivity extends BaseActivity {
     private IndexEditViewModel       mEditViewModel;
     private IndexEditActivityBinding mBinding;
 
+    private IndexModel mIndexModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +32,37 @@ public class IndexEditActivity extends BaseActivity {
         mEditViewModel = ViewModelProviders.of(this).get(IndexEditViewModel.class);
         getLifecycle().addObserver(mEditViewModel);
 
-        setToolbarAsBack(v -> onBackPressed());
+        setToolbarAsBack(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(KeyboardUtils.isSoftInputVisible(IndexEditActivity.this)){
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+                    }
+                }
+                finish();
+            }
+        });
+
         setToolbarTitle(getResources().getString(R.string.menu_tally_investment));
 
+        getIntentData();
         initView();
         subscribeUi();
+    }
+
+    private void getIntentData() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra("bundle");
+        if(bundle != null){
+            mIndexModel = (IndexModel) bundle.getSerializable("indexModel");
+        }
+
+        if(mIndexModel != null){
+            mBinding.indexName.setText(mIndexModel.getIndexName());
+            mBinding.indexArea.setText(mIndexModel.getIndexType());
+        }
     }
 
     private void initView() {
@@ -78,7 +106,7 @@ public class IndexEditActivity extends BaseActivity {
         indexModel.setIndexType(mBinding.indexArea.getText().toString());
         indexModel.setIndexNumber(mBinding.currentIndex.getText().toString());
         indexModel.setIndexRange(mBinding.currentRange.getText().toString());
-        indexModel.setIndexPercent(mBinding.currentPercent.getText().toString());
+        indexModel.setIndexPercent(mBinding.currentPercent.getText().toString() + "%");
 
         mEditViewModel.saveIndexData(indexModel);
     }
@@ -97,4 +125,32 @@ public class IndexEditActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        if(KeyboardUtils.isSoftInputVisible(this)){
+//            mBinding.rootLayout.requestFocus();
+//            InputMethodManager mInputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+//            mInputMethodManager.hideSoftInputFromWindow(mBinding.rootLayout.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+//        }
+//        if(KeyboardUtils.isSoftInputVisible(this)){
+//            MineExecutors.ioExecutor().execute(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        Instrumentation inst= new Instrumentation();
+//                        inst.sendKeyDownUpSync(KeyEvent. KEYCODE_BACK);
+//                    } catch(Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//        }
+        if(KeyboardUtils.isSoftInputVisible(this)){
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+            }
+        }
+    }
 }

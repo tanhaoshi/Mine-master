@@ -2,21 +2,26 @@ package com.coderpage.mine.app.tally.ui.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.Instrumentation;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.coderpage.base.utils.UIUtils;
+import com.coderpage.concurrency.MineExecutors;
 import com.coderpage.mine.R;
-import com.coderpage.mine.app.tally.common.utils.TallyUtils;
 import com.coderpage.mine.app.tally.databinding.CommonBindAdapter;
-import com.coderpage.mine.app.tally.persistence.preference.SettingPreference;
+import com.coderpage.mine.app.tally.utils.KeyboardUtils;
 import com.coderpage.mine.common.Font;
-import com.coderpage.mine.dialog.FundEditDialogBinding;
 import com.coderpage.mine.dialog.FundEditIndexDialogBinding;
 
 /**
@@ -26,10 +31,12 @@ public class FundEditIndexDialog extends Dialog {
 
     private FundEditIndexDialog.Listener mListener;
     private FundEditIndexDialogBinding mBinding;
+    private Activity mActivity;
 
     public FundEditIndexDialog(Activity activity) {
         super(activity, R.style.Widget_Dialog_BottomSheet);
         initView(activity);
+        this.mActivity = activity;
     }
 
     private void initView(Activity activity) {
@@ -40,13 +47,6 @@ public class FundEditIndexDialog extends Dialog {
 
         mBinding.tvBudgetUnit.setText("基金日涨幅:");
 
-        // 显示设置的预算
-        float budgetMonth = SettingPreference.getBudgetMonth(activity);
-        if (budgetMonth > 0) {
-            mBinding.etBudget.setText(TallyUtils.formatDisplayMoney(budgetMonth));
-            mBinding.etBudget.setSelection(mBinding.etBudget.getText().toString().length());
-        }
-
 //         输入框获取焦点时，弹出软键盘
         mBinding.etBudget.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus && getWindow() != null) {
@@ -55,6 +55,7 @@ public class FundEditIndexDialog extends Dialog {
         });
 
         mBinding.ivClose.setOnClickListener(v -> dismiss());
+
         mBinding.tvConfirm.setOnClickListener(v -> {
             String budgetStr = mBinding.etBudget.getText().toString();
             // 输入预算 <= 0 提示错误信息
@@ -92,6 +93,16 @@ public class FundEditIndexDialog extends Dialog {
         super.show();
         mBinding.etBudget.setFocusable(true);
         mBinding.etBudget.requestFocus();
+    }
+
+    @Override
+    public void dismiss() {
+        View view = getCurrentFocus();
+        if(view instanceof TextView){
+            InputMethodManager mInputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            mInputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+        }
+        super.dismiss();
     }
 
     public FundEditIndexDialog setListener(Listener listener) {

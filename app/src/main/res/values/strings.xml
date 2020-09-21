@@ -9,6 +9,7 @@
     <string name="complete">完成</string>
     <string name="delete">删除</string>
     <string name="modify">修改</string>
+    <string name="details">详情</string>
     <string name="fund_edit">编辑基金</string>
     <string name="index_edit">编辑指数</string>
     <string name="place_holder">--</string>

@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -104,6 +105,25 @@ public class IndexInsideAdapter extends RecyclerView.Adapter<IndexInsideAdapter.
             mBinding.setData(indexModel);
             mBinding.setVM(mAdapterViewModel);
             mBinding.executePendingBindings();
+
+            if(Double.valueOf(indexModel.getIndexIncreaseType()) == 0){
+                mBinding.increase.setText("+" + indexModel.getIndexRange());
+                mBinding.increase.setTextColor(mActivity.getResources().getColor(R.color.indexRangeUp));
+
+                mBinding.increasePercent.setText("+"+indexModel.getIndexPercent() + "%");
+                mBinding.increasePercent.setTextColor(mActivity.getResources().getColor(R.color.indexRangeUp));
+
+                mBinding.fundDesc.setTextColor(mActivity.getResources().getColor(R.color.indexRangeUp));
+            }else{
+                mBinding.increase.setText("-" + indexModel.getIndexRange());
+                mBinding.increase.setTextColor(mActivity.getResources().getColor(R.color.categoryIncomeColor4));
+
+                mBinding.increasePercent.setText("-"+indexModel.getIndexPercent() + "%");
+                mBinding.increasePercent.setTextColor(mActivity.getResources().getColor(R.color.categoryIncomeColor4));
+
+                mBinding.fundDesc.setTextColor(mActivity.getResources().getColor(R.color.categoryIncomeColor4));
+            }
+
         }
     }
 

@@ -66,7 +66,7 @@
 
     <color name="chartGridLine">#efefef</color>
 
-    <color name="expenseColor">#f2615e</color>
+    <color name="expenseColor">#E52A26</color>
     <color name="incomeColor">#60b9ff</color>
 
     <color name="icCategoryIncomeNormal">#3f000000</color>
@@ -80,5 +80,7 @@
     <color name="bgCategoryExpenseSelected">@color/expenseColor</color>
 
     <color name="person_gray_color">#fff5f5f5</color>
+
+    <color name="indexRangeUp">#FFE52A26</color>
 
 </resources>

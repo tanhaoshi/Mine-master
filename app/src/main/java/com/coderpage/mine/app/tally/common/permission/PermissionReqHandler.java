@@ -69,15 +69,21 @@ public class PermissionReqHandler {
         // 未授权的权限列表
         List<String> notGrantedPermission = new ArrayList<>();
         ArrayUtils.forEach(permissionArray, (count, index, permission) -> {
+
             // 是否已经授权
-            boolean granted = ContextCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_GRANTED
-                    && PermissionChecker.isPermissionGranted(activity, permission);
+//            && PermissionChecker.isPermissionGranted(activity, permission)
+            boolean granted = ContextCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_GRANTED;
+
             if (!granted) {
                 notGrantedPermission.add(permission);
             }
+
         });
+
         String[] notGrantedPermissionArray = new String[notGrantedPermission.size()];
+
         ArrayUtils.forEach(notGrantedPermission, (count, index, item) -> notGrantedPermissionArray[index] = item);
+
         return notGrantedPermissionArray;
     }
 

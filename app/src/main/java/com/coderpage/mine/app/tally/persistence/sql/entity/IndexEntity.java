@@ -49,6 +49,9 @@ public class IndexEntity {
     @ColumnInfo(name = "index_type_unique")
     private String indexUnique;
 
+    @ColumnInfo(name = "index_increase_type")
+    private int indexIncreaseType;
+
     public long getId() {
         return id;
     }
@@ -119,5 +122,13 @@ public class IndexEntity {
 
     public void setIndexUnique(String indexUnique) {
         this.indexUnique = indexUnique;
+    }
+
+    public int getIndexIncreaseType() {
+        return indexIncreaseType;
+    }
+
+    public void setIndexIncreaseType(int indexIncreaseType) {
+        this.indexIncreaseType = indexIncreaseType;
     }
 }

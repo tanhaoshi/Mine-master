@@ -105,6 +105,15 @@ public class IndexOfFundAdapter extends RecyclerView.Adapter<IndexOfFundAdapter.
             mBinding.setData(fundModel);
             mBinding.setVm(mFundViewModel);
             mBinding.executePendingBindings();
+
+            if(fundModel.getFundIncreaseType() == 0){
+                mBinding.etAmount.setText("+"+fundModel.getFundPercent() + "%");
+                mBinding.etAmount.setTextColor(mActivity.getResources().getColor(R.color.indexRangeUp));
+
+            }else{
+                mBinding.etAmount.setText("-"+fundModel.getFundPercent() + "%");
+                mBinding.etAmount.setTextColor(mActivity.getResources().getColor(R.color.categoryIncomeColor4));
+            }
         }
     }
 }

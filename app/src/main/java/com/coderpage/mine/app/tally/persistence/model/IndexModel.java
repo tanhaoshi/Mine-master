@@ -46,6 +46,9 @@ public class IndexModel implements Serializable {
     @ColumnInfo(name = "index_type_unique")
     private String indexUnique;
 
+    @ColumnInfo(name = "index_increase_type")
+    private int indexIncreaseType;
+
     public long getId() {
         return id;
     }
@@ -118,6 +121,14 @@ public class IndexModel implements Serializable {
         this.indexUnique = indexUnique;
     }
 
+    public int getIndexIncreaseType() {
+        return indexIncreaseType;
+    }
+
+    public void setIndexIncreaseType(int indexIncreaseType) {
+        this.indexIncreaseType = indexIncreaseType;
+    }
+
     public IndexEntity createIndexEntity(){
         IndexEntity indexEntity = new IndexEntity();
         indexEntity.setFundSyncId(getFundSyncId());
@@ -126,6 +137,8 @@ public class IndexModel implements Serializable {
         indexEntity.setIndexNumber(getIndexNumber());
         indexEntity.setIndexRange(getIndexRange());
         indexEntity.setIndexPercent(getIndexPercent());
+        indexEntity.setTime(System.currentTimeMillis());
+        indexEntity.setIndexIncreaseType(getIndexIncreaseType());
         return indexEntity;
     }
 }

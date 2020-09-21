@@ -32,7 +32,7 @@ import java.util.List;
  * @since 0.6.0
  */
 
-@Database(entities = {RecordEntity.class,CategoryEntity.class,FundEntity.class, IndexEntity.class}, version = 71, exportSchema = false)
+@Database(entities = {RecordEntity.class,CategoryEntity.class,FundEntity.class, IndexEntity.class}, version = 72, exportSchema = false)
 public abstract class TallyDatabase extends RoomDatabase {
     /** sqlite db name */
     private static final String DATABASE_NAME = "sql_tally";
@@ -47,6 +47,8 @@ public abstract class TallyDatabase extends RoomDatabase {
     private static final int VERSION_0_7_0 = 70;
 
     private static final int VERSION_0_7_1 = 71;
+
+    private static final int VERSION_0_7_2 = 72;
 
     private static TallyDatabase sInstance = null;
 
@@ -86,7 +88,8 @@ public abstract class TallyDatabase extends RoomDatabase {
                     sInstance = Room.databaseBuilder(
                             MineApp.getAppContext(),
                             TallyDatabase.class, DATABASE_NAME)
-                            .addMigrations(MIGRATION_010_040, MIGRATION_040_060,MIGRATION_060_070,MIGRATION_070_071)
+                            .addMigrations(MIGRATION_010_040, MIGRATION_040_060,MIGRATION_060_070,
+                                    MIGRATION_070_071,MIGRATION_071_072)
                             .addCallback(mTallDatabaseCallback)
                             .allowMainThreadQueries()
                             .build();
@@ -322,6 +325,14 @@ public abstract class TallyDatabase extends RoomDatabase {
                     + "UNIQUE (index_type_unique) ON CONFLICT IGNORE)");
 
             database.execSQL("CREATE UNIQUE INDEX index_indexs_indexs__type_unique on indexs(index_type_unique)");
+        }
+    };
+
+    private static final Migration MIGRATION_071_072 = new Migration(VERSION_0_7_1,VERSION_0_7_2) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE indexs add column index_increase_type INTEGER NOT NULL DEFAULT 0 ");
+            database.execSQL("ALTER TABLE fund add column fund_increase_type INTEGER NOT NULL DEFAULT 0");
         }
     };
 

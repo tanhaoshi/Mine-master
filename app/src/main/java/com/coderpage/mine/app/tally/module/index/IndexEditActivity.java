@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -100,13 +102,19 @@ public class IndexEditActivity extends BaseActivity {
             return;
         }
 
+        if(mBinding.currentType.getText().toString().length() < 1){
+            Toast.makeText(this,"日涨跌类型必须填写", LENGTH_SHORT).show();
+            return;
+        }
+
         IndexModel indexModel = new IndexModel();
         indexModel.setFundSyncId(System.currentTimeMillis());
         indexModel.setIndexName(mBinding.indexName.getText().toString());
         indexModel.setIndexType(mBinding.indexArea.getText().toString());
         indexModel.setIndexNumber(mBinding.currentIndex.getText().toString());
         indexModel.setIndexRange(mBinding.currentRange.getText().toString());
-        indexModel.setIndexPercent(mBinding.currentPercent.getText().toString() + "%");
+        indexModel.setIndexPercent(mBinding.currentPercent.getText().toString());
+        indexModel.setIndexIncreaseType(Integer.valueOf(mBinding.currentType.getText().toString()));
 
         mEditViewModel.saveIndexData(indexModel);
     }
@@ -126,31 +134,25 @@ public class IndexEditActivity extends BaseActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-//        if(KeyboardUtils.isSoftInputVisible(this)){
-//            mBinding.rootLayout.requestFocus();
-//            InputMethodManager mInputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-//            mInputMethodManager.hideSoftInputFromWindow(mBinding.rootLayout.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
-//        }
-//        if(KeyboardUtils.isSoftInputVisible(this)){
-//            MineExecutors.ioExecutor().execute(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        Instrumentation inst= new Instrumentation();
-//                        inst.sendKeyDownUpSync(KeyEvent. KEYCODE_BACK);
-//                    } catch(Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
-//        }
-        if(KeyboardUtils.isSoftInputVisible(this)){
-            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            if (imm != null) {
-                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
-            }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(mIndexModel != null){
+            getMenuInflater().inflate(R.menu.menu_index_details,menu);
         }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.details:
+                Intent intent = new Intent(IndexEditActivity.this,IndexDetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("indexModel",mIndexModel);
+                intent.putExtra("bundle",bundle);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

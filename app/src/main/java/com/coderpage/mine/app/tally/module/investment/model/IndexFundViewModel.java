@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -23,24 +24,28 @@ public class IndexFundViewModel extends AndroidViewModel implements LifecycleObs
 
     private InvestmentRepository mRepository;
 
+    public  MutableLiveData<Boolean> observerUpdate = new MutableLiveData<>();
+
     public IndexFundViewModel(@NonNull Application application) {
         super(application);
         mRepository = new InvestmentRepository();
     }
 
     public void onItemClick(View view, Activity activity, FundModel fundModel){
-        new FundEditIndexDialog(activity).setListener((dialog, percent) -> {
+        new FundEditIndexDialog(activity).setListener((dialog, percent,rangeType) -> {
             FundModel model = new FundModel();
             model.setFundName(fundModel.getFundName());
             model.setFundNumber(fundModel.getFundNumber());
             model.setTime(System.currentTimeMillis());
             model.setFundType("1");
-            model.setFundPercent(percent + "%");
+            model.setFundPercent(percent);
             model.setFundSyncId(System.currentTimeMillis());
+            model.setFundIncreaseType(Integer.valueOf(rangeType));
             mRepository.saveFund(model, new SimpleCallback<Result<Long, IError>>() {
                 @Override
                 public void success(Result<Long, IError> longIErrorResult) {
                     UIUtils.hideSoftKeyboard(activity,view);
+                    observerUpdate.setValue(true);
                 }
             });
             dialog.dismiss();

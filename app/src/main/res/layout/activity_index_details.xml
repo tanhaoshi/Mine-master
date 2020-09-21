@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout>
-    <data class=".app.tally.module.index.IndexEditActivityBinding">
-        <variable
-            name="data"
-            type="com.coderpage.mine.app.tally.module.index.IndexEditViewModel" />
-    </data>
 
+    <data class=".tally.module.index.IndexDetailsActivityBinding">
+        <variable
+            name="VM"
+            type="com.coderpage.mine.app.tally.module.index.IndexDetailsViewModel" />
+    </data>
     <android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,8 +15,7 @@
         android:focusableInTouchMode="true"
         android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".app.tally.module.index.IndexEditActivity">
+        android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
@@ -64,59 +62,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="指数名称"
+                        android:text="近一周涨幅"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/black"/>
-
-                    <EditText
-                        android:id="@+id/indexName"
-                        android:background="@null"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColorHint="@color/colorHint"
                         android:textColor="@color/black"
-                        android:hint="指数名称"
-                        android:gravity="center_vertical|end"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="6dp"/>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/person_gray_color"/>
-
-                <LinearLayout
-                    android:background="?android:attr/selectableItemBackground"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:gravity="center_vertical">
+                        tools:text="近一周涨幅"/>
 
                     <TextView
-                        android:id="@+id/area_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:text="国内国外"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/black"/>
-
-                    <EditText
-                        android:id="@+id/indexArea"
+                        android:id="@+id/indexWeek"
                         android:background="@null"
                         android:layout_width="0dp"
-                        android:inputType="numberSigned"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColorHint="@color/colorHint"
                         android:textColor="@color/black"
-                        android:hint="1A股2美股3港股"
                         android:gravity="center_vertical|end"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="6dp"/>
@@ -140,21 +99,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="当前指数"
+                        android:text="近一月涨幅"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        tools:text="近一月涨幅"/>
 
-                    <EditText
-                        android:id="@+id/current_index"
+                    <TextView
+                        android:id="@+id/indexMouth"
                         android:background="@null"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColorHint="@color/colorHint"
                         android:textColor="@color/black"
-                        android:hint="当前指数"
                         android:gravity="center_vertical|end"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="6dp"/>
@@ -178,21 +136,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="日涨跌类型"
+                        android:text="近三月涨幅"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        tools:text="近三月涨幅"/>
 
-                    <EditText
-                        android:id="@+id/current_type"
+                    <TextView
+                        android:id="@+id/indexThreeMouth"
                         android:background="@null"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:inputType="numberSigned"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColorHint="@color/colorHint"
                         android:textColor="@color/black"
-                        android:hint="0为涨1为跌"
                         android:gravity="center_vertical|end"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="6dp"/>
@@ -216,21 +173,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="日涨跌指数"
+                        android:text="近半年涨幅"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        tools:text="近半年涨幅"/>
 
-                    <EditText
-                        android:id="@+id/current_range"
+                    <TextView
+                        android:id="@+id/indexHalfYear"
                         android:background="@null"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColorHint="@color/colorHint"
                         android:textColor="@color/black"
-                        android:hint="日涨跌指数多少"
                         android:gravity="center_vertical|end"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="6dp"/>
@@ -254,21 +210,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="日涨跌百分比"
+                        android:text="近一年涨幅"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        tools:text="近一年涨幅"/>
 
-                    <EditText
-                        android:id="@+id/current_percent"
+                    <TextView
+                        android:id="@+id/indexYear"
                         android:background="@null"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColorHint="@color/colorHint"
                         android:textColor="@color/black"
-                        android:hint="百分比"
                         android:gravity="center_vertical|end"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="6dp"/>
@@ -280,25 +235,120 @@
                     android:layout_height="1dp"
                     android:background="@color/person_gray_color"/>
 
-                <TextView
-                    android:id="@+id/tvConfirm"
+                <LinearLayout
+                    android:background="?android:attr/selectableItemBackground"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="@dimen/padding_normal"
-                    android:layout_marginTop="@dimen/padding_normal"
-                    android:layout_marginEnd="@dimen/padding_normal"
-                    android:background="@drawable/bg_accent_btn_round"
-                    android:gravity="center"
-                    android:paddingTop="@dimen/padding_micro"
-                    android:paddingBottom="@dimen/padding_micro"
-                    android:text="@string/confirm"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/app_text_size_large"/>
+                    android:layout_height="56dp"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="近三年涨幅"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/black"
+                        tools:text="近三年涨幅"/>
+
+                    <TextView
+                        android:id="@+id/indexThreeYear"
+                        android:background="@null"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColorHint="@color/colorHint"
+                        android:textColor="@color/black"
+                        android:gravity="center_vertical|end"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="6dp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/person_gray_color"/>
+
+                <LinearLayout
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="近五年涨幅"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/black"
+                        tools:text="近五年涨幅"/>
+
+                    <TextView
+                        android:id="@+id/indexFiveYear"
+                        android:background="@null"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColorHint="@color/colorHint"
+                        android:textColor="@color/black"
+                        android:gravity="center_vertical|end"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="6dp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/person_gray_color"/>
+
+                <LinearLayout
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="成立来"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/black"
+                        tools:text="成立来"/>
+
+                    <TextView
+                        android:id="@+id/indexStart"
+                        android:background="@null"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColorHint="@color/colorHint"
+                        android:textColor="@color/black"
+                        android:gravity="center_vertical|end"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="6dp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/person_gray_color"/>
 
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
 
     </android.support.design.widget.CoordinatorLayout>
-
 </layout>

@@ -46,6 +46,7 @@ public class FundEditIndexDialog extends Dialog {
         CommonBindAdapter.setTypeFace(mBinding.etBudget, Font.QUICKSAND_MEDIUM);
 
         mBinding.tvBudgetUnit.setText("基金日涨幅:");
+        mBinding.tvFundCode.setText("日涨跌类型:");
 
 //         输入框获取焦点时，弹出软键盘
         mBinding.etBudget.setOnFocusChangeListener((v, hasFocus) -> {
@@ -58,14 +59,20 @@ public class FundEditIndexDialog extends Dialog {
 
         mBinding.tvConfirm.setOnClickListener(v -> {
             String budgetStr = mBinding.etBudget.getText().toString();
+            String increaseRange = mBinding.etFundCode.getText().toString();
             // 输入预算 <= 0 提示错误信息
             if (budgetStr.length() <= 0) {
-                Toast.makeText(activity, "不能输入为空!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "涨幅不能为空!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if(increaseRange.length() < 1){
+                Toast.makeText(activity, "涨幅类型不能为空!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (mListener != null) {
-                mListener.onBudgetUpdate(this, budgetStr);
+                mListener.onBudgetUpdate(this, budgetStr,increaseRange);
             }
         });
 
@@ -114,6 +121,6 @@ public class FundEditIndexDialog extends Dialog {
         /**
          * @param dialog dialog
          */
-        void onBudgetUpdate(DialogInterface dialog, String percent);
+        void onBudgetUpdate(DialogInterface dialog, String percent,String rangeType);
     }
 }

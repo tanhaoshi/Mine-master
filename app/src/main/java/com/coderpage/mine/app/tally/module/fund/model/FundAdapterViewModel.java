@@ -29,7 +29,7 @@ public class FundAdapterViewModel extends AndroidViewModel implements LifecycleO
     }
 
     public void onItemClick(View view, Activity activity, FundModel fundModel){
-        new FundEditIndexDialog(activity).setListener((dialog,percent) -> {
+        new FundEditIndexDialog(activity).setListener((dialog,percent,rangeType) -> {
             FundModel model = new FundModel();
             model.setFundName(fundModel.getFundName());
             model.setFundNumber(fundModel.getFundNumber());
@@ -37,6 +37,7 @@ public class FundAdapterViewModel extends AndroidViewModel implements LifecycleO
             model.setFundType("1");
             model.setFundPercent(percent);
             model.setFundSyncId(System.currentTimeMillis());
+            model.setFundIncreaseType(Integer.valueOf(rangeType));
             mRepository.saveFund(model, new SimpleCallback<Result<Long, IError>>() {
                 @Override
                 public void success(Result<Long, IError> longIErrorResult) {

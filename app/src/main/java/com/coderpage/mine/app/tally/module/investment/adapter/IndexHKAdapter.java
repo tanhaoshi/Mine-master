@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.coderpage.mine.MineApp;
@@ -101,11 +100,29 @@ public class IndexHKAdapter extends RecyclerView.Adapter<IndexHKAdapter.HKVH>{
             mHKBinding = binding;
         }
 
-        public void bindTo(IndexModel model){
+        public void bindTo(IndexModel indexModel){
             mHKBinding.setActivity(mActivity);
-            mHKBinding.setData(model);
+            mHKBinding.setData(indexModel);
             mHKBinding.setVM(mIndexHKViewModel);
             mHKBinding.executePendingBindings();
+
+            if(Double.valueOf(indexModel.getIndexIncreaseType()) == 0){
+                mHKBinding.increase.setText("+" + indexModel.getIndexRange());
+                mHKBinding.increase.setTextColor(mActivity.getResources().getColor(R.color.indexRangeUp));
+
+                mHKBinding.increasePercent.setText("+"+indexModel.getIndexPercent() + "%");
+                mHKBinding.increasePercent.setTextColor(mActivity.getResources().getColor(R.color.indexRangeUp));
+
+                mHKBinding.fundDesc.setTextColor(mActivity.getResources().getColor(R.color.indexRangeUp));
+            }else{
+                mHKBinding.increase.setText("-" + indexModel.getIndexRange());
+                mHKBinding.increase.setTextColor(mActivity.getResources().getColor(R.color.categoryIncomeColor4));
+
+                mHKBinding.increasePercent.setText("-"+indexModel.getIndexPercent() + "%");
+                mHKBinding.increasePercent.setTextColor(mActivity.getResources().getColor(R.color.categoryIncomeColor4));
+
+                mHKBinding.fundDesc.setTextColor(mActivity.getResources().getColor(R.color.categoryIncomeColor4));
+            }
         }
     }
 }

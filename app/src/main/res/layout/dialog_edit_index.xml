@@ -28,7 +28,7 @@
 
             <TextView
                 android:id="@+id/tvBudgetUnit"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_normal"
                 android:paddingTop="@dimen/padding_normal"
@@ -47,7 +47,7 @@
                 android:layout_marginEnd="@dimen/padding_normal"
                 android:background="@null"
                 android:hint="幅度"
-                android:inputType="numberSigned"
+                android:inputType="numberDecimal"
                 android:layout_marginStart="@dimen/spacing_micro"
                 android:paddingTop="@dimen/padding_normal"
                 android:paddingBottom="@dimen/padding_normal"
@@ -57,6 +57,38 @@
                 app:layout_constraintBaseline_toBaselineOf="@id/tvBudgetUnit"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tvBudgetUnit" />
+
+            <TextView
+                android:id="@+id/tv_fund_code"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_normal"
+                android:paddingTop="@dimen/padding_normal"
+                android:paddingBottom="@dimen/padding_normal"
+                android:textColor="@color/appTextColorPrimary"
+                android:textSize="@dimen/app_text_size_large"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBudgetUnit"
+                tools:text="日涨跌类型:" />
+
+            <EditText
+                android:id="@+id/et_fund_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_normal"
+                android:layout_marginEnd="@dimen/padding_normal"
+                android:background="@null"
+                android:hint="0为涨1为跌"
+                android:inputType="numberSigned"
+                android:layout_marginStart="@dimen/spacing_micro"
+                android:paddingTop="@dimen/padding_normal"
+                android:paddingBottom="@dimen/padding_normal"
+                android:textColor="@color/appTextColorPrimary"
+                android:textCursorDrawable="@drawable/edit_cursor"
+                android:textSize="@dimen/app_text_size_xlarge"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_fund_code"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_fund_code" />
 
             <TextView
                 android:id="@+id/tvConfirm"
@@ -74,7 +106,7 @@
                 android:textSize="@dimen/app_text_size_large"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvBudgetUnit" />
+                app:layout_constraintTop_toBottomOf="@id/tv_fund_code" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/ivClose"

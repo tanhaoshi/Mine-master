@@ -64,7 +64,6 @@ public class InvestmentModel extends AndroidViewModel implements LifecycleObserv
          mRepository.queryAllFun(new Callback<List<FundModel>, IError>() {
             @Override
             public void success(List<FundModel> fundModels) {
-                Log.i("InvestmentModel","look at json data = " + JSON.toJSONString(fundModels));
                 fundObserve.setValue(fundModels);
             }
 

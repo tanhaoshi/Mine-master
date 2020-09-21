@@ -18,7 +18,14 @@ public interface IndexDao {
     @Insert
     long insert(IndexEntity indexEntity);
 
-    @Query("select * from indexs where index_type == :type group by index_name order by create_time desc ")
+    @Query("select * from indexs where index_type == :type group by index_name order by create_time asc ")
     List<IndexModel> getInsideIndex(String type);
+
+    // <= datetime('now','start of day','+0 day','weekday 1')
+
+    // >= datetime('now','start of day','-6day')
+    @Query("select * from indexs where index_type == :type and index_name == :indexName and " +
+            "create_time <= datetime('now','start of day','+0 day','weekday 1') ")
+    List<IndexModel> getLatelyWeekIndex(String type,String indexName);
 
 }

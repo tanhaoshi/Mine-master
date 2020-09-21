@@ -51,6 +51,9 @@ public class FundEntity {
     @ColumnInfo(name = "fund_type_unique")
     private String fundUnique;
 
+    @ColumnInfo(name = "fund_increase_type")
+    private int fundIncreaseType;
+
     public long getId() {
         return id;
     }
@@ -121,5 +124,13 @@ public class FundEntity {
 
     public void setFundUnique(String fundUnique) {
         this.fundUnique = fundUnique;
+    }
+
+    public int getFundIncreaseType() {
+        return fundIncreaseType;
+    }
+
+    public void setFundIncreaseType(int fundIncreaseType) {
+        this.fundIncreaseType = fundIncreaseType;
     }
 }

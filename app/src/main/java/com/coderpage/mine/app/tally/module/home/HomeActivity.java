@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -77,16 +78,19 @@ public class HomeActivity extends BaseActivity {
     private void handlePermission() {
         // 检查授权，请求权限
         String[] notGrantedPermissionArray = mPermissionReqHandler.getNotGrantedPermissionArray(self(), mNeedPermissionArray);
+
         if (notGrantedPermissionArray.length == 0) {
             return;
         }
 
         // 读存储权限 写存储权限，显示一条即可
         List<String> permissionList = new ArrayList<>(Arrays.asList(notGrantedPermissionArray));
+
         if (permissionList.contains(android.Manifest.permission.READ_EXTERNAL_STORAGE)
                 && permissionList.contains(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             permissionList.remove(android.Manifest.permission.READ_EXTERNAL_STORAGE);
         }
+
         new PermissionReqDialog(self(), permissionList)
                 .setTitleText(ResUtils.getString(self(), R.string.permission_req_title_format, ResUtils.getString(self(), R.string.app_name)))
                 .setPositiveText(ResUtils.getString(self(), R.string.permission_req_open))

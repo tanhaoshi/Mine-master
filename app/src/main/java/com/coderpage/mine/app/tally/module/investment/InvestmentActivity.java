@@ -43,6 +43,8 @@ public class InvestmentActivity extends BaseActivity {
     private InvestmentModel           mInvestmentModel;
     private InvestmentActivityBinding mActivityBinding;
 
+    private IndexFundViewModel mFundViewModel;
+
     private IndexInsideAdapter  mIndexInsideAdapter;
     private IndexOutsideAdapter mIndexOutsideAdapter;
     private IndexHKAdapter      mHKAdapter;
@@ -92,7 +94,18 @@ public class InvestmentActivity extends BaseActivity {
         RecyclerView fundRcView = mActivityBinding.fundRecycler;
         fundRcView.setLayoutManager(fundLayoutManager);
 
-        mIndexOfFundAdapter = new IndexOfFundAdapter(this,ViewModelProviders.of(this).get(IndexFundViewModel.class));
+        mFundViewModel = ViewModelProviders.of(this).get(IndexFundViewModel.class);
+        mIndexOfFundAdapter = new IndexOfFundAdapter(this,mFundViewModel);
+
+        mFundViewModel.observerUpdate.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if(aBoolean){
+                    mInvestmentModel.queryAllFund();
+                }
+            }
+        });
+
         fundRcView.setAdapter(mIndexOfFundAdapter);
     }
 
@@ -132,6 +145,10 @@ public class InvestmentActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
+       observerStartInitData();
+    }
+
+    private void observerStartInitData(){
         mInvestmentModel.queryInsideIndex(INSIDE_TYPE);
         mInvestmentModel.queryOutsize(OUTSIZE_TYPE);
         mInvestmentModel.queryHKInside(HK_TYPE);

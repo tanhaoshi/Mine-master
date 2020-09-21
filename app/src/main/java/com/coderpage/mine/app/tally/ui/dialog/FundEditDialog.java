@@ -2,6 +2,7 @@ package com.coderpage.mine.app.tally.ui.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.view.Gravity;
@@ -9,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coderpage.base.utils.CommonUtils;
@@ -102,6 +105,16 @@ public class FundEditDialog extends Dialog {
         super.show();
         mBinding.etBudget.setFocusable(true);
         mBinding.etBudget.requestFocus();
+    }
+
+    @Override
+    public void dismiss() {
+        View view = getCurrentFocus();
+        if(view instanceof TextView){
+            InputMethodManager methodManager = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            methodManager.hideSoftInputFromWindow(view.getWindowToken(),InputMethodManager.RESULT_UNCHANGED_SHOWN);
+        }
+        super.dismiss();
     }
 
     public FundEditDialog setListener(Listener listener) {

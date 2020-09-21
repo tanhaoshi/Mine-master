@@ -47,6 +47,9 @@ public class FundModel implements Serializable {
     @ColumnInfo(name = "fund_type_unique")
     private String fundUnique;
 
+    @ColumnInfo(name = "fund_increase_type")
+    private int fundIncreaseType;
+
     public long getId() {
         return id;
     }
@@ -119,6 +122,14 @@ public class FundModel implements Serializable {
         this.fundUnique = fundUnique;
     }
 
+    public int getFundIncreaseType() {
+        return fundIncreaseType;
+    }
+
+    public void setFundIncreaseType(int fundIncreaseType) {
+        this.fundIncreaseType = fundIncreaseType;
+    }
+
     public FundEntity createEntity() {
         FundEntity entity = new FundEntity();
         entity.setId(getId());
@@ -130,6 +141,7 @@ public class FundModel implements Serializable {
         entity.setFundType(getFundType());
         entity.setFundUnique(getFundUnique());
         entity.setTime(getTime());
+        entity.setFundIncreaseType(getFundIncreaseType());
         return entity;
     }
 }
